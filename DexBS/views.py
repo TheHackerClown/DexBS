@@ -5,15 +5,11 @@ from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from google.oauth2 import id_token
 from google.auth.transport import requests
-import jwt
+from .models import *
 
 
-def sign_in(request):
-    return render(request, 'sign-in.html')
-
-def sign_up(request):
-    return render(request, 'sign_up.html')
-
+def main(request):
+    return render(request,'main.html')
 
 @csrf_exempt
 def auth_receiver(request):
@@ -34,7 +30,12 @@ def auth_receiver(request):
     request.session['user_data'] = user_data
     print(user_data)
 
-    return render(request,'main.html')
+    return redirect('main')
+
+def feed(request, userdata):
+    return render(request,'main.html',{'user':userdata})
+
+
 
 
 def sign_out(request):

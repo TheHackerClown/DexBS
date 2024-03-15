@@ -5,3 +5,5 @@ from .models import *
 admin.site.register(User)
 admin.site.register(Dex)
 admin.site.register(Post)
+admin.site.register(Comment)
+admin.site.register(Membership)

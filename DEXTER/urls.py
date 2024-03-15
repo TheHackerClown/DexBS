@@ -22,10 +22,9 @@ from DexBS.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('sign-in', sign_in, name='sign_in'),
-    path('sign-up',sign_up, name='sign_up'),
-    path('sign-out', sign_out, name='sign_out'),
-    path('auth-receiver', auth_receiver, name='auth_receiver')
+    path('', main, name='main'),
+    path('auth-receiver', auth_receiver, name='auth_receiver'),
+    path('feed',feed,name='feed')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

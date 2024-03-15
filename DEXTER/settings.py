@@ -29,6 +29,7 @@ DEBUG = True
 load_dotenv()
 
 ALLOWED_HOSTS = []
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'unsafe-none'
 
 
 # Application definition
