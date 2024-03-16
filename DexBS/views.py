@@ -6,6 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from .models import *
+from .forms import *
+from datetime import datetime
 
 
 def main(request):
@@ -24,20 +26,36 @@ def auth_receiver(request):
         )
     except ValueError:
         return HttpResponse(status=403)
-
-    # In a real app, I'd also save any new user here to the database. See below for a real example I wrote for Photon Designer.
-    # You could also authenticate the user here using the details from Google (https://docs.djangoproject.com/en/4.2/topics/auth/default/#how-to-log-a-user-in)
+    
     request.session['user_data'] = user_data
-    print(user_data)
+    return redirect('user_gate')
 
-    return redirect('main')
+def feed(request):
+    if request.session['signin']:
+        if request.method == "POST":
+            form = SignIn(request.POST)
+            if form.is_valid():
+                g_data = request.session['user_data']
+                cover = form.cleaned_data['cover']
+                desc = form.cleaned_data['desc']
+                username = form.cleaned_data['username']
+                propic = g_data['picture']
+                name = g_data['name']
+                email = g_data['email']
+                User.objects.create(name=name,username=username,desc=desc,email=email,cover=cover,propic=propic,cake_day=datetime.now())
+                del request.session['signin']
+                return render(request,'feed.html',{'user':'hehe'})
 
-def feed(request, userdata):
-    return render(request,'main.html',{'user':userdata})
-
-
-
+def user_gate(request):
+    g_data = request.session['user_data']
+    userfind = User.objects.filter(email=g_data['email'])
+    if userfind:
+        return render(request,'usergate.html',{'userdata':userfind})
+    else:
+        form = SignIn()
+        request.session['signin'] = True
+        return render(request,'usergate.html',{'form':form})
 
 def sign_out(request):
     del request.session['user_data']
-    return redirect('sign_in')
+    return redirect('main')

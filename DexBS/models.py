@@ -7,8 +7,10 @@ class User(models.Model):
     name=models.CharField(max_length=22)
     username=models.CharField(max_length=22)
     cake_day = models.DateField()
+    desc = models.TextField()
     propic = models.CharField(max_length=200)
     email = models.CharField(max_length=50)
+    cover = models.CharField(max_length=7)
     def __str__(self):
         return f"{self.name}"
     
@@ -18,9 +20,9 @@ class Dex(models.Model):
     desc = models.TextField()
     dex=models.CharField(max_length=22)
     cake_day = models.DateField()
-    propic = models.ImageField(upload_to='static/dex_pics/')
+    propic = models.ImageField(upload_to='static/dex_pics')
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
-    cover = models.ImageField(upload_to='static/covers/')
+    cover = models.CharField(max_length=7)
     def __str__(self):
         return f"{self.name}"
 

@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', main, name='main'),
     path('auth-receiver', auth_receiver, name='auth_receiver'),
-    path('feed',feed,name='feed')
+    path('feed',feed,name='feed'),
+    path('user-gate',user_gate,name='user_gate')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
