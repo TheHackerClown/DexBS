@@ -45,12 +45,16 @@ def feed(request):
                 User.objects.create(name=name,username=username,desc=desc,email=email,cover=cover,propic=propic,cake_day=datetime.now())
                 del request.session['signin']
                 return render(request,'feed.html',{'user':'hehe'})
+    else:
+        del request.session['signin']
+        return render(request,'feed.html',{'user':'mar dala'})
 
 def user_gate(request):
     g_data = request.session['user_data']
     userfind = User.objects.filter(email=g_data['email'])
     if userfind:
-        return render(request,'usergate.html',{'userdata':userfind})
+        request.session['signin'] = False
+        return render(request,'usergate.html')
     else:
         form = SignIn()
         request.session['signin'] = True

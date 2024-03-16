@@ -24,7 +24,7 @@
                 }
             .centered-div {
                 position: absolute;
-                top: 60%;
+                top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
                 border-radius: 0%;
@@ -39,6 +39,51 @@
                 margin-left: auto;
                 margin-right: auto;
                 background: #000;
+            }
+            .loader {
+                width: 48px;
+                height: 48px;
+                border: 3px dotted #ff0000;
+                border-style: solid solid dotted dotted;
+                border-radius: 50%;
+                display: inline-block;
+                position: relative;
+                box-sizing: border-box;
+                animation: rotation 2s linear infinite;
+                }
+            .loader::after {
+                content: '';  
+                box-sizing: border-box;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                border: 3px dotted #ff0000;
+                border-style: solid solid dotted;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                animation: rotationBack 1s linear infinite;
+                transform-origin: center center;
+                }
+                    
+            @keyframes rotation {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            } 
+            @keyframes rotationBack {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(-360deg);
+                }
             }
         </style>
     
@@ -57,7 +102,7 @@
             <form method="post" action="{% url 'feed' %}">
                     {% csrf_token %}
                         <MARQUEE style="color: #2BFF00;top: 1%;margin-left: auto;margin-right: auto;" scrollamount="13">This Page is A User Registration Form, Please Fill Correctly. Currently You Are On SURVEILLANCE!!!</MARQUEE>
-                    <div class="centered-div" style="height: 440px;">
+                    <div class="centered-div" style="height: 440px;top:60%;">
                         <div style="justify-self: center;justify-content: center;">
                             <h5 style="color: #2BFF00;">Cover Color ( Click Below! )</h5>
                             {{form.cover}}
@@ -85,22 +130,15 @@
             
         {%else%}
             <div class="centered-div"> 
-                <div class="card" style="width: 18rem;">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">An item</li>
-                      <li class="list-group-item">A second item</li>
-                      <li class="list-group-item">A third item</li>
-                    </ul>
-                    <div class="card-body">
-                      <a href="#" class="card-link">Card link</a>
-                      <a href="#" class="card-link">Another link</a>
-                    </div>
-                  </div>
+                <div id ='spinner' style="display: block;">
+                    <span class="loader"></span>
+                    <h2 style="color: #2BFF00;">Loading...</h2>
+                    <script>
+                        setTimeout(function() {
+                            window.location.replace("{% url 'feed' %}");
+                        }, 4000);  // 3000 milliseconds = 3 seconds
+                    </script>
+                </div>
             </div>
         {%endif%}
     </body>
