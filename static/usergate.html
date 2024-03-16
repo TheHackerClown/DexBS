@@ -97,9 +97,9 @@
                 </a>
             </div>
         </header>
-        {% if form %}
+        {% if request.session.signup %}
             
-            <form method="post" action="{% url 'feed' %}">
+            <form method="post" action="{% url 'user_gate' %}">
                     {% csrf_token %}
                         <MARQUEE style="color: #2BFF00;top: 1%;margin-left: auto;margin-right: auto;" scrollamount="13">This Page is A User Registration Form, Please Fill Correctly. Currently You Are On SURVEILLANCE!!!</MARQUEE>
                     <div class="centered-div" style="height: 440px;top:60%;">
