@@ -1,0 +1,61 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>DexBS</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <style>
+          html, main, body, pre, code, kbd, samp {
+              font-family: "Press Start 2P";
+            }
+          body.dark-mode {
+            background-color: #333;
+            color: #fff;
+          }
+          form.dark-mode {
+            background-color: #333;
+            color: #fff;
+          }
+        </style>
+        
+    </head>
+    <main>
+      <button type="button" class="nes-btn is-error" style="position: fixed;left:91%;top: 90%;z-index: 99;" id="theme-toggle">Theme</button>
+      <script>
+        const body = document.body;
+        const themeToggle = document.getElementById('theme-toggle');
+        function toggleTheme() {
+          body.classList.toggle('dark-mode');
+        }
+        themeToggle.addEventListener('click', toggleTheme);
+
+      </script>
+      <header>
+        <nav style="display: flex;justify-content: space-between;border-bottom: 2px solid #333;">
+          <a class="navbar-brand" style='margin-top: 1%;margin-left: 1%;' href="/">
+            <img src="{%static 'favicon.png'%}" alt="Logo" style="width:max-content;height:60px;border-radius: 0px;">
+          </a>
+          <form method="post" action="{%url 'search'%}" class="nes-field" style='margin-top: 1%;'>
+            {% csrf_token %}
+            {{form.search}}
+          </form>
+          {% if request.session.user_data %}
+          <button type="button" class="nes-btn" style="background: {{user.cover}};margin-top: 1%;margin-right:1%;margin-bottom: 1%;"><img class='nes-avatar is-rounded is-medium' src='{{user.propic}}' style="image-rendering: pixelated;"></button>
+          {% else %}
+          <a href="{% url 'guard' %}" style='margin-top: 1%;margin-right: 1%;margin-bottom: 1%;'><button type="button" class="nes-btn is-success">Login</button></a>
+          {% endif %}
+
+        </nav>
+        
+      </header>
+      <body>
+        <h1>heheheheh</h1>
+        <a href="/exit">exit</a>
+      </body>
+
+    </main>
+</html>

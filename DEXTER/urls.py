@@ -22,10 +22,16 @@ from DexBS.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main, name='main'),
+    path('', index, name='index'),
+    path('guard',guard, name='guard'),
     path('auth-receiver', auth_receiver, name='auth_receiver'),
-    path('feed',feed,name='feed'),
-    path('user-gate',user_gate,name='user_gate')
+    path('user-gate',user_gate,name='user_gate'),
+    path('u/<str:username>',user_profile,name='user_profile'),
+    path('d/<str:dex>',dex, name='dex'),
+    path('d/create',create_dex, name='create_dex'),
+    path('post/create',create_post,name='create_post'),
+    path('search',search,name='search'),
+    path('exit',sign_out,name='exit')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

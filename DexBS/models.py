@@ -8,7 +8,7 @@ class User(models.Model):
     username=models.CharField(max_length=22)
     cake_day = models.DateField()
     desc = models.TextField()
-    propic = models.CharField(max_length=200)
+    propic = models.CharField(max_length=10000)
     email = models.CharField(max_length=50)
     cover = models.CharField(max_length=7)
     def __str__(self):
@@ -20,8 +20,10 @@ class Dex(models.Model):
     desc = models.TextField()
     dex=models.CharField(max_length=22)
     cake_day = models.DateField()
-    propic = models.ImageField(upload_to='static/dex_pics')
+    propic = models.ImageField(upload_to=f'd/dex_pics')
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    rules = models.TextField()
+    rules_desc = models.TextField()
     cover = models.CharField(max_length=7)
     def __str__(self):
         return f"{self.name}"
@@ -31,7 +33,8 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     dex = models.ForeignKey(Dex, on_delete=models.CASCADE)
     desc = models.CharField(max_length=100)
-    file = models.FileField(upload_to='static/data/')
+    cake_day = models.DateTimeField()
+    file = models.FileField(upload_to=f'post/data/')
     upvote = models.IntegerField()
     downvote = models.IntegerField()
     def __str__(self):
@@ -43,8 +46,8 @@ class Comment(models.Model):
     cake_day = models.DateTimeField()
     dex = models.ForeignKey(Dex,on_delete=models.CASCADE)
     post = models.ForeignKey(Post,on_delete=models.CASCADE)
-    like = models.IntegerField()
-    dislike = models.IntegerField()
+    upvote = models.IntegerField()
+    downvote = models.IntegerField()
     def __str__(self):
         return f"{self.post.user.name} {self.content} {self.post.desc}"
 
