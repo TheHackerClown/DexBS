@@ -28,7 +28,8 @@
             #ColorInput {
                 margin-left: auto;
                 margin-right: auto;
-                background: #000;
+                background-color: #000000;
+                border: 2px dashed red;
             }
             .loader {
                 width: 48px;
@@ -94,13 +95,13 @@
                         <MARQUEE style="color: #2BFF00;top: 1%;margin-left: auto;margin-right: auto;" scrollamount="13">This Page is A User Registration Form, Please Fill Correctly. Currently You Are On SURVEILLANCE!!!</MARQUEE>
                     <div class="centered-div" style="height: 440px;top:60%;">
                         <div style="justify-self: center;justify-content: center;">
-                            <h5 style="color: #2BFF00;">Cover Color ( Click Below! )</h5>
+                            <h5 style="color: #2BFF00;">Favourite Color ( Click Below! )</h5>
                             {{form.cover}}
                             <hr>
                         </div>
                         <div>
                             <h5 style="color: #2BFF00;">DexBS Username</h5>
-                            <div class="input-group mb-3">
+                            <div class="input-group mb-3" style="border-radius: 10px;width: auto;">
                                 <span class="input-group-text" id="basic-addon1">u/</span>
                                 {{form.username}}
                                 <hr>

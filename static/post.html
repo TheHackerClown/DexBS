@@ -1,0 +1,279 @@
+{%load static%}
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>DexBS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+      body {
+        color:#fff;
+        font-family: Geo;
+        background-image: url("{%static 'bg.gif'%}");
+        overflow: hidden;
+        height: 100vh;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo img {
+        margin-top: 2%;
+        margin-left: 1%;
+        height:15%;
+        width:30%;
+      }
+
+      .profile {
+        position: relative;
+      }
+
+      .profile img {
+        margin-top: 3%;
+        margin-right: 2%;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+      }
+      .body-content {
+        display: flex;
+      }
+
+      .left-content,
+      .right-content {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .left-content {
+        width: 20%;
+        height:max-content;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: green transparent;
+      }
+
+      .right-content {
+        width: 70%;
+        overflow-y: auto;
+        height:530px;
+        scrollbar-width: thin;
+        scrollbar-color: green transparent;
+      }
+      ul {
+        list-style-type: none;
+      }
+      li:hover {
+        background: #333;
+      }
+      .card {
+        background-color: #000;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+    }
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .username {
+        font-weight: bold;
+    }
+    .post-content {
+        margin-bottom: 10px;
+    }
+    .post-image {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .post-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .post-details {
+        font-size: 14px;
+        color: #888888;
+    }
+    hr {
+      color: #fff;
+      margin-top: 10%;
+    }
+    .dex-card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10%;
+        background-color: #f9f9f9;
+    }
+
+    .dex-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .dex-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .dex-name {
+        font-weight: bold;
+
+    }
+
+    .dex-description {
+        margin-bottom: 5px;
+    }
+
+    .dex-stats {
+        font-style: italic;
+    }
+
+    </style>
+  </head>
+  <header class="header">
+    <div class="logo">
+      <img src="{%static 'favicon.png'%}" alt="Site Logo">
+    </div>
+    <a class="profile" href="/u/{{user_data.username}}">
+      <img src="{{user_data.propic}}" alt="User Profile">
+    </a>
+  </header>
+  <body>
+    <div class="body-content">
+      <div class="left-content">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <hr>
+          <li><strong>Dex Members</strong></li>
+          <br>
+          {%for membership in memberships%}
+            {%if membership.user in moderators%}
+              <li><a href="/u/{{membership.user.username}}" style="display: flex;justify-content: space-evenly;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;">
+                <img src="{{membership.user.propic}}"class='avatar'> 
+                <strong style="color: #fff;margin-top: auto;margin-bottom: auto;">u/{{membership.user.username}}</strong>
+                <strong style="color: red;margin-top: auto;margin-bottom: auto;">Mod</strong>
+              </a>
+              </li>
+              <br>
+            {%elif membership.user not in moderators and mod %}
+              <li style="display: flex;justify-content: space-evenly;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;"><a href="/u/{{membership.user.username}}" style="display: flex;justify-content: space-evenly;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;">
+                <img src="{{membership.user.propic}}"class='avatar'> 
+                <strong style="color: #fff;margin-top: auto;margin-bottom: auto;">u/{{membership.user.username}}</strong>
+              </a>
+              <a href="/d/{{dex.dex}}/mod/create/{membership.user.rfid}" style="margin-top: auto;margin-bottom: auto;">
+                <strong style="color: red;margin-top: auto;margin-bottom: auto;">↑ Make Mod</strong>
+              </a>
+              </li>
+              <br>
+            {%else%}
+              <li style="display: flex;justify-content: space-evenly;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;"><a href="/u/{{membership.user.username}}" style="display: flex;justify-content: space-evenly;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;">
+                <img src="{{membership.user.propic}}"class='avatar'> 
+                <strong style="color: #fff;margin-top: auto;margin-bottom: auto;">u/{{membership.user.username}}</strong>
+              </a>
+              </li>
+              <br>
+            {%endif%}
+          {%endfor%}
+          <hr>
+          <br>
+          <li><a href="/d/{{dex.dex}}/post/create" style="text-align: center;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;"> 
+            <strong style="color: #fff;">Create Post</strong>
+          </a>
+          </li>
+          <hr>
+          <br>
+          <li><a href="/search/d" style="text-align: center;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;"> 
+            <strong style="color: #fff;">More Dexs</strong>
+          </a>
+          </li>
+          <hr>
+          <br>
+          <li><a href="/search" style="text-align: center;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;"> 
+            <strong style="color: #fff;">Universal Search</strong>
+          </a>
+          </li>
+          <hr>
+          <br>
+          <li><strong><a href="/exit" style="color: red;">Sign Out</a></strong></li>
+        
+        </ul>
+        
+
+      </div>
+      <div class="right-content">
+        <div class="dex-card" style="background: linear-gradient(to right, black, {{dex.cover}});">
+          <div class="dex-header">
+              <img src="{% static '{{dex.propic}}' %}" alt="dex Icon" class="dex-icon">
+              <h2 class="dex-name">{{ dex.name }} or d/{{dex.dex}}</h2>
+          </div>
+          <div class="dex-content">
+              <p class="dex-description">{{ dex.desc }}</p>
+              <p class="dex-stats">Follower: {{ total_user }} • Posts: {{ total_post }}</p>
+          </div>
+          {%if follow%}
+          <div style="margin-left: 93%;">
+            <a href="/d/{{dex.dex}}/follow/{{user_data.rfid}}" style="border-radius: 15%;border-color: #fff; border-style: solid;padding:3%;background: #000;">
+              <strong style="color: White;margin-top: auto;margin-bottom: auto;">+ Follow</strong>
+            </a>
+          </div>
+          {%else%}
+          {%endif%}
+      </div>
+      <br>
+      <div>
+          <h1>Owner</h1>
+          <a href="/u/{{dex.owner.username}}" style="display: flex;justify-content: space-around;border-radius: 5%;border-color: #fff; border-style: solid;padding: 2%;background: #000;">
+            <img src="{{dex.owner.propic}}" class="avatar"> 
+            <strong style="color: #fff;margin-top: 1%;">{{dex.owner.name}}</strong>
+          </a>
+      </div>
+      <hr>
+      <h1 padding="5%">Posts</h1>
+      <br>
+        {%for i in posts%}
+          <div class="card">
+            <div class="card-header">
+                <img src="{{i.owner.propic}}" alt="Avatar" class="avatar">
+                <a href="/u/{{i.owner.username}}" style="margin-right: 2%;">
+                  <span class="username">u/{{i.owner.username}}</span>
+                </a>
+                <span class="post-details">  posted in d/{{i.dex.dex}} • on {{i.cake_day.date}} at {{i.cake_day.time}}</span>
+                {%if mod %}
+                  <a href="/d/{{dex.dex}}/post/delete/{{i.rfid}}" style="margin-left: 10%;"><div style="color: red;">
+                    Delete Post
+                  </div></a>
+                {% endif %}
+            </div>
+            <div class="post-content">
+                <p class="post-title">{{i.title}}</p>
+                
+                <img src="https://via.placeholder.com/600x300" alt="Post Image" class="post-image">
+                <p>{{i.desc}}</p>
+            </div>
+            <div class="post-details">{{i.upvote}} upvotes • 10 comments</div>
+          </div>
+          <br>
+        {%endfor%}
+      </div>
+      <hr>
+  </body>
+</html>

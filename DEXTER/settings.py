@@ -28,9 +28,9 @@ SECRET_KEY = 'django-insecure-+%)^r$i&r+@6r($2$=-r5ba)jzzirty@e3n*c1^^)poyxk&pnk
 DEBUG = True
 load_dotenv()
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origins-allow-popups'
-
+APPEND_SLASH=False
 
 # Application definition
 

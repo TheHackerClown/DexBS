@@ -1,43 +1,92 @@
 {%load static%}
-<!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>DexBS</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
-        <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-        <style>
-          html, main, body, pre, code, kbd, samp {
-              font-family: "Press Start 2P";
-            }
-          body.dark-mode {
-            background-color: #333;
-            color: #fff;
-          }
-        </style>
-    </head>
-    <main>
-      <header>
-        <button id='theme-toggle' style="background: #fff;"><img src="{%static 'day-night.svg' %}"></button>
-        <script>
-          const body = document.body;
-          const themeToggle = document.getElementById('theme-toggle');
+  <head>
+    <meta charset="UTF-8">
+    <title>DexBS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+      body {
+        color:#fff;
+        font-family: Geo;
+        background-color: black;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        background: linear-gradient(to right, #000000, {{user.cover}});
+      }
 
-          // Function to toggle between light and dark themes
-          function toggleTheme() {
-            body.classList.toggle('dark-mode');
-          }
+      .logo img {
+        margin-top: 0.5%;
+        margin-left: 0.5%;
+        height:15%;
+        width:30%;
+      }
 
-          // Event listener for the theme toggle button
-          themeToggle.addEventListener('click', toggleTheme);
+      .profile {
+        position: relative;
+      }
 
-        </script>
-      </header>
-      <body>
-        <h1>heheheheh</h1>
-        <a href="/exit">exit</a>
-      </body>
-    </main>
+      .profile img {
+        margin-top: 2%;
+        margin-right: 2%;
+        border-radius: 50%;
+        width: 50px; /* Adjust the width as needed */
+        height: 50px; /* Adjust the height as needed */
+      }
+      .body-content {
+        display: flex;
+      }
+
+      .left-content,
+      .right-content {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .left-content {
+        width: 20%;
+      }
+
+      .right-content {
+        width: 70%;
+      }
+      ul {
+        list-style-type: none;
+      }
+    </style>
+  </head>
+  <header class="header">
+    <div class="logo">
+      <img src="{%static 'favicon.png'%}" alt="Site Logo">
+    </div>
+    <a class="profile" href="{%url 'user_profile' user.username%}">
+      <img src="{{user.propic}}" alt="User Profile">
+    </a>
+  </header>
+  <body>
+    <div class="body-content">
+      <div class="left-content">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <hr>
+          <li><strong><a href="#">Dexs</a></strong></li>
+          {%for dex in dexs%}
+            <li><img src='{{dex.propic}}' style='width:30%;height:30%;'><strong>{{dex.dex}}</strong></li>
+          {%endfor%}
+        
+        </ul>
+        
+
+      </div>
+      <div class="right-content">
+        <p>This is the right content with 70% width.</p>
+      </div>
+  </body>
 </html>
