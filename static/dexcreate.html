@@ -1,1 +1,262 @@
-<a href="/">return to feed</a>
+{%load static%}
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>DexBS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://thehackerclown.github.io/DexBS_Asset_Library/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+      body {
+        color:#fff;
+        font-family: Geo;
+        background-image: url("https://thehackerclown.github.io/DexBS_Asset_Library/bg.gif");
+        overflow: hidden;
+        height: 100vh;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo img {
+        margin-top: 2%;
+        margin-left: 1%;
+        height:15%;
+        width:30%;
+      }
+
+      .profile {
+        position: relative;
+      }
+
+      .profile img {
+        margin-top: 3%;
+        margin-right: 2%;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+      }
+      .body-content {
+        display: flex;
+      }
+
+      .left-content,
+      .right-content {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .left-content {
+        width: 20%;
+        height:500px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: green transparent;
+      }
+
+      .right-content {
+        width: 70%;
+        overflow-y: auto;
+        height:530px;
+        scrollbar-width: thin;
+        scrollbar-color: green transparent;
+      }
+      ul {
+        list-style-type: none;
+      }
+      li:hover {
+        background: #333;
+      }
+      .card {
+        background-color: #000;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+    }
+    .card-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .username {
+        font-weight: bold;
+    }
+    .post-content {
+        margin-bottom: 10px;
+    }
+    .post-image {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+    .post-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .post-details {
+        font-size: 14px;
+        color: #888888;
+    }
+    hr {
+      color: #fff;
+      margin-top: 10%;
+    }
+    .dex-card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-bottom: 10%;
+        background-color: #f9f9f9;
+    }
+
+    .dex-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+
+    .dex-icon {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .dex-name {
+        font-weight: bold;
+
+    }
+
+    .dex-description {
+        margin-bottom: 5px;
+    }
+
+    .dex-stats {
+        font-style: italic;
+    }
+
+    </style>
+  </head>
+  <header class="header">
+    <div class="logo">
+      <img src="https://thehackerclown.github.io/DexBS_Asset_Library/favicon.png" alt="Site Logo">
+    </div>
+    <a class="profile" href="/u/{{user_data.username}}">
+      <img src="{{user_data.propic}}" alt="User Profile">
+    </a>
+  </header>
+  <body>
+    <div class="body-content">
+        <div class="left-content">
+            <ul>
+              <li><a href="/">Home</a></li>
+              <hr>
+              <li><strong>Joined Dexs</strong></li>
+              <br>
+              {%for dex in dexs%}
+                <li><a href="/d/{{dex.dex}}" style="display: flex;justify-content: space-evenly;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;">
+                  <img src="{{dex.propic}}" class="avatar"> 
+                  <strong style="color: #fff;">{{dex.name}}</strong>
+                  {%if user_data.username == dex.owner.username%}
+                  <strong style="color: red;">Owned</strong>
+                  {%else%}
+                  {%endif%}
+                </a>
+                </li>
+                <br>
+              {%endfor%}
+              <hr>
+              <br>
+              <li><a href="/search/d" style="text-align: center;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;"> 
+                <strong style="color: #fff;">More Dexs</strong>
+              </a>
+              </li>
+              <hr>
+              <br>
+              <li><a href="/search" style="text-align: center;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;"> 
+                <strong style="color: #fff;">Universal Search</strong>
+              </a>
+              </li>
+              <hr>
+              <br>
+              <li><strong><a href="/exit" style="color: red;">Sign Out</a></strong></li>
+            
+            </ul>
+            
+    
+        </div>
+      
+        <div class="right-content">
+            <form method="post" action="/d/create" enctype="multipart/form-data">
+                {%csrf_token%}
+                <div class="dex-card" style="background: #000;">
+                    <div class="dex-header">
+                        <div>
+                            Choose Dex Profile Pic
+                            {{dex_form.propic}}
+                        </div>
+                        <div class="dex-description" style="padding: 3%;">Dex Name: {{dex_form.name}}</div>
+                        <div class="dex-description" style="padding: 3%;">
+                            Dex ID [d/dex]: 
+                            <div style="display: flex;align-content: stretch;">
+                                <span style="background-color: #fff;color: black;padding:1%;"><strong>d/</strong></span>
+                                {{dex_form.dex}}
+                            </div>
+                        </div>
+                        <div style="text-align: end;background-color: #000;border:2px dashed red;border-radius: 30%;padding:2%;">
+                            Choose Your Theme
+                            {{dex_form.cover}}
+                        </div>
+                    </div>
+                    <div class="dex-content">
+                        <div>
+                            <h1>Dex Description<h1>
+                            {{dex_form.desc}}
+                        </div>
+                        <br>
+                        <div>
+                            <h1>Rules</h1>
+                            {{dex_form.rules}}
+                        </div>
+                        <br>
+                        <p class="dex-stats">Follower: 0 • Posts: 0</p>
+
+                        <div style="text-align: end;">
+                            <button type="submit"><h3 style='color: green;'>Create Dex</h3></button>
+                          </div>
+                    </div>
+                </div>
+            </form>
+            
+            <hr>
+            <div>
+                <h1>Owner</h1>
+                <a href="/u/{{user_data.username}}" style="display: flex;justify-content: space-around;border-radius: 5%;border-color: #fff; border-style: solid;padding: 2%;background: #000;">
+                    <img src="{{user_data.propic}}" class="avatar"> 
+                    <strong style="color: #fff;margin-top: 1%;">{{user_data.name}}</strong>
+                </a>
+            </div>
+
+        </div>
+      <hr>
+      
+      </div>
+      <hr>
+  </body>
+</html>

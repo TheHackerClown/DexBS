@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <title>DexBS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="icon" type="image/x-icon" href="https://thehackerclown.github.io/DexBS_Asset_Library/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap" rel="stylesheet">
     <style>
       body {
         color:#fff;
         font-family: Geo;
-        background-image: url("{%static 'bg.gif'%}");
+        background-image: url("https://thehackerclown.github.io/DexBS_Asset_Library/bg.gif");
         overflow: hidden;
         height: 100vh;
       }
@@ -153,7 +155,7 @@
   </head>
   <header class="header">
     <div class="logo">
-      <img src="{%static 'favicon.png'%}" alt="Site Logo">
+      <img src="https://thehackerclown.github.io/DexBS_Asset_Library/favicon.png" alt="Site Logo">
     </div>
     <a class="profile" href="/u/{{user_data.username}}">
       <img src="{{user_data.propic}}" alt="User Profile">
@@ -288,7 +290,7 @@
       <div class="right-content">
         <div class="dex-card" style="background: linear-gradient(to right, black, {{dex.cover}});">
           <div class="dex-header">
-              <img src="{% static '{{dex.propic}}' %}" alt="dex Icon" class="dex-icon">
+              <img src="{{dex.propic}}" alt="dex Icon" class="dex-icon">
               <h2 class="dex-name">{{ dex.name }} or d/{{dex.dex}}</h2>
               {%if user_data == dex.owner%}
                 <div style="margin-left: 50%;background-color: #000;border:2px dashed red;border-radius: 30%;padding:2%;">
@@ -347,7 +349,29 @@
             </div>
             <div class="post-content">
                 <p class="post-title">{{i.title}}</p>
-                <img src="https://via.placeholder.com/600x300" alt="Post Image" class="post-image">
+                {%if i.type == 'image' %}
+                  <img src="{{i.file}}" alt="Post File" class="post-image">
+                {%elif i.type == 'video' %}
+                  <video id="player" playsinline controls class="post-image">
+                    <source src="{{i.file}}" type="video/mp4" />
+                  </video>
+                  <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                      const player = Plyr.setup('video');
+                    });
+                  </script>
+                {%elif i.type == 'music' %}
+                  <audio id="player" controls class="post-image">
+                    <source src="{{i.file}}" type="audio/mpeg" />
+                  </audio>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                      const player = Plyr.setup('audio');
+                    });
+                  </script>
+                {%else%}
+                {% endif %}
                 <p>{{i.desc}}</p>
             </div>
             <div class="post-details">{{i.upvote}} upvotes • {{i.downvote}} downvotes</div>

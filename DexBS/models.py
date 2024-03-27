@@ -23,13 +23,8 @@ class Dex(models.Model):
     propic = models.CharField(max_length=100)
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
     rules = models.TextField()
-    rules_desc = models.TextField()
     cover = models.CharField(max_length=7)
 
-    def save(self,*args,**kwargs):
-        super().save(*args, **kwargs)
-        inst = Membership.objects.create(user=self.owner,dex=self.dex)
-        inst.save()
     def __str__(self):
         return f"{self.name}"
 
@@ -37,17 +32,19 @@ class Post(models.Model):
     rfid = models.BigAutoField(primary_key=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     dex = models.ForeignKey(Dex, on_delete=models.CASCADE)
-    title = models.CharField(max_length=50)
-    desc = models.CharField(max_length=100)
+    title = models.CharField(max_length=200)
+    desc = models.CharField(max_length=200)
     cake_day = models.DateTimeField()
-    image = models.CharField(max_length=200)
-    upvote = models.IntegerField()
-    downvote = models.IntegerField()
+    file = models.CharField(max_length=200,default=None)
+    upvote = models.IntegerField(default=0)
+    type = models.CharField(max_length=20)
+    downvote = models.IntegerField(default=0)
     def __str__(self):
         return f"{self.user.name} --> {self.desc}"
     #Post Model
 
 class Comment(models.Model):
+    rfid = models.BigAutoField(primary_key=True)
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
     content = models.TextField()
     cake_day = models.DateTimeField()

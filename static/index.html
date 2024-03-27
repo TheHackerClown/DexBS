@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <title>DexBS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="icon" type="image/x-icon" href="https://thehackerclown.github.io/DexBS_Asset_Library/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Geo:ital@0;1&display=swap" rel="stylesheet">
     <style>
       body {
         color:#fff;
         font-family: Geo;
-        background-image: url("{%static 'bg.gif'%}");
+        background-image: url("https://thehackerclown.github.io/DexBS_Asset_Library/bg.gif");
         overflow: hidden;
         height: 100vh;
       }
@@ -98,6 +100,7 @@
     }
     .post-image {
         max-width: 100%;
+        max-height:300px;
         border-radius: 8px;
         margin-bottom: 10px;
     }
@@ -158,7 +161,7 @@
   </head>
   <header class="header">
     <div class="logo">
-      <img src="{%static 'favicon.png'%}" alt="Site Logo">
+      <img src="https://thehackerclown.github.io/DexBS_Asset_Library/favicon.png" alt="Site Logo">
     </div>
     <a class="profile" href="/u/{{user_data.username}}">
       <img src="{{user_data.propic}}" alt="User Profile">
@@ -174,10 +177,15 @@
           <br>
           {%for dex in dexs%}
             <li><a href="/d/{{dex.dex}}" style="display: flex;justify-content: space-evenly;border-radius: 5%;border-color: #fff; border-style: solid;padding: 5%;background: #000;">
-              <img src='{%static "{{dex.propic}}"%}' style='width:10%;height:20%;border-radius: 30%;'> 
+              <img src="{{dex.propic}}" style='width:10%;height:20%;border-radius: 30%;'> 
               <strong style="color: #fff;">{{dex.name}}</strong>
+              {%if user_data.username == dex.owner.username %}
+                  <strong style="color: red;">Owned</strong>
+              {%else%}
+              {%endif%}
             </a>
             </li>
+            <br>
           {%endfor%}
           <hr>
           <br>
@@ -218,11 +226,33 @@
             </div>
             <div class="post-content">
                 <p class="post-title">{{i.title}}</p>
-                
-                <img src="https://via.placeholder.com/600x300" alt="Post Image" class="post-image">
+                {%if i.type == 'image' %}
+                  <img src="{{i.file}}" alt="Post File" class="post-image">
+                {%elif i.type == 'video' %}
+                  <video controls class="post-image">
+                    <source src="{{i.file}}" type="video/mp4">
+                  </video>
+                  <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                      const player = Plyr.setup('video');
+                    });
+                  </script>
+                {%elif i.type == 'music' %}
+                  <audio controls>
+                    <source src="{{i.file}}" type="audio/mp3">
+                  </audio>
+                  <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                      const player = Plyr.setup('audio');
+                    });
+                  </script>
+                {%else%}
+                {% endif %}
                 <p>{{i.desc}}</p>
             </div>
-            <div class="post-details">{{i.upvote}} upvotes • 10 comments</div>
+            <div class="post-details">{{i.upvote}} upvotes • {{i.downvote}} downvotes</div>
+            <div class="post-details"><a href="/d/{{i.dex.dex}}/post/{{i.rfid}}">Open Comments</a></div>
           </div>
           <br>
         {%endfor%}

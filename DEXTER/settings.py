@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-+%)^r$i&r+@6r($2$=-r5ba)jzzirty@e3n*c1^^)poyxk&pnk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 load_dotenv()
 
 ALLOWED_HOSTS = ['*']
@@ -121,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'd'),os.path.join(BASE_DIR, 'post')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),os.path.join(BASE_DIR,'temp')]
 # The absolute path to the directory where collectstatic will collect static files for deployment.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
