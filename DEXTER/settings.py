@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+%)^r$i&r+@6r($2$=-r5ba)jzzirty@e3n*c1^^)poyxk&pnk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dexbs.onrender.com','localhost','127.0.0.1','https://dexbs.onrender.com']
+ALLOWED_HOSTS = ['*']
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origins-allow-popups]'
 APPEND_SLASH=False
 
