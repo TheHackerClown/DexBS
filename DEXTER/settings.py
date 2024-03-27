@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG','False').lower() == 'true'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = list(os.environ.get('ALLOWED_HOSTS').split(' '))
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origins-allow-popups'
 APPEND_SLASH=False
 
