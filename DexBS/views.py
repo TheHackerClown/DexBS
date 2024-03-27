@@ -1,13 +1,11 @@
 import os
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from google.oauth2 import id_token
 from google.auth.transport import requests
 from .models import *
 from .forms import *
 from datetime import datetime
-from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,7 +20,7 @@ def auth_receiver(request):
             token, requests.Request(), os.environ.get('GOOGLE_CLIENT_ID')
         )
     except ValueError:
-        return render(request,'error.html',{'code':909,'desc':'Bhai Error aagya, dhruv se baat karle, kehde ki google oauth verification error hai','redirect':'/u/create','btn_label':'Return To Login'})
+        return HttpResponse(content='Google OAuth Error, Dhruv se baat karle')
     
     request.session['user_data'] = user_data
     userfind = User.objects.filter(email=user_data['email'])
