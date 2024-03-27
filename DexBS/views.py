@@ -19,7 +19,7 @@ def auth_receiver(request):
 
     try:
         user_data = id_token.verify_oauth2_token(
-            token, requests.Request(), os.environ['GOOGLE_OAUTH_CLIENT_ID']
+            token, requests.Request(), '301598792317-16s6rjmjs9t5u3vtpl9kfo568l6vkvn5.apps.googleusercontent.com'
         )
     except ValueError:
         return render(request,'error.html',{'code':909,'desc':'Bhai Error aagya, dhruv se baat karle, kehde ki google oauth verification error hai','redirect':'/u/create','btn_label':'Return To Login'})
@@ -288,7 +288,6 @@ def post(request, dex, rfid):
                 os.remove(file_path)
             else:
                 url = None
-                print('yeah')
                 file_type = 'text'
             inst = Post.objects.create(owner=user,dex=dex,title=title,desc=desc,cake_day=datetime.now(),file=url,type=file_type)
             inst.save()
