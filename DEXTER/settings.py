@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-+%)^r$i&r+@6r($2$=-r5ba)jzzirty@e3n*c1^^)poyxk&pnk
 DEBUG = True
 
 ALLOWED_HOSTS = ['dexbs.onrender.com','localhost','127.0.0.1']
-SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origins-allow-popups'
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origins-allow-popups]'
 APPEND_SLASH=False
 
 # Application definition
@@ -77,14 +77,17 @@ WSGI_APPLICATION = 'DEXTER.wsgi.app'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'axiwcpks',
-        'USER':'axiwcpks',
-        'PASSWORD': 'w72HDdbB25PeVEcfj2sH3pry6XSuJ450',
-        'HOST': 'topsy.db.elephantsql.com',
-        'PORT':'5432'
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'dexbs',
+    'USER': 'dexbs_owner',
+    'PASSWORD': 'Xvmis5obhnJ3',
+    'HOST': 'ep-yellow-fire-a56ncyej.us-east-2.aws.neon.tech',
+    'PORT': 5432,
+    'OPTIONS': {
+      'sslmode': 'require',
+    },
+  }
 }
 
 
