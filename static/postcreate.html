@@ -335,7 +335,7 @@
         <div class="right-content">
           <h1 padding="5%">Create Post</h1>
           <form method="post" action="{%url 'post' dex=dex.dex rfid='create'%}" enctype="multipart/form-data" id="post_form">
-              {%csrf_token%}
+            {%csrf_token%}
               <div class="card">
                   <div class="card-header">
                       <img src="{{user_data.propic}}" alt="Avatar" class="avatar">
