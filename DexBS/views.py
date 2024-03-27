@@ -94,7 +94,7 @@ def del_git_file(path):
     import requests
     USERNAME = 'TheHackerClown'
     REPO_NAME = 'DexBS_Asset_Library'
-    ACCESS_TOKEN = os.environ['GITHUB_PAT']
+    ACCESS_TOKEN = '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'
     path = (path.split('?'))[0]
     path = path.replace('%20',' ')
     FILE_GITHUB_PATH = (path.split('/'))[-1]
