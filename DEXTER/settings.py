@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +25,8 @@ SECRET_KEY = 'django-insecure-+%)^r$i&r+@6r($2$=-r5ba)jzzirty@e3n*c1^^)poyxk&pnk
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-load_dotenv()
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.vercel.app']
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origins-allow-popups'
 APPEND_SLASH=False
 
