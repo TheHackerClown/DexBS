@@ -19,7 +19,7 @@ def auth_receiver(request):
 
     try:
         user_data = id_token.verify_oauth2_token(
-            token, requests.Request(), '301598792317-16s6rjmjs9t5u3vtpl9kfo568l6vkvn5.apps.googleusercontent.com'
+            token, requests.Request(), os.environ.get('GOOGLE_CLIENT_ID')
         )
     except ValueError:
         return render(request,'error.html',{'code':909,'desc':'Bhai Error aagya, dhruv se baat karle, kehde ki google oauth verification error hai','redirect':'/u/create','btn_label':'Return To Login'})
@@ -54,7 +54,7 @@ def filetourl(path):
     import os
     USERNAME = 'TheHackerClown'
     REPO_NAME = 'DexBS_Asset_Library'
-    ACCESS_TOKEN = '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'
+    ACCESS_TOKEN = os.environ.get('GITHUB_PAT')
     FILE_PATH = path
     FILE_NAME = os.path.basename(FILE_PATH)
     if FILE_NAME[-3::1] in ['ico','webp','gif','jpeg','png','jpg']:
@@ -94,7 +94,7 @@ def del_git_file(path):
     import requests
     USERNAME = 'TheHackerClown'
     REPO_NAME = 'DexBS_Asset_Library'
-    ACCESS_TOKEN = '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'
+    ACCESS_TOKEN = os.environ.get('GITHUB_PAT')
     path = (path.split('?'))[0]
     path = path.replace('%20',' ')
     FILE_GITHUB_PATH = (path.split('/'))[-1]
