@@ -1,8 +1,7 @@
 {
     "builds": [{
         "src": "DEXTER/wsgi.py",
-        "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python" }
+        "use": "@vercel/python"
     }],
     "routes": [
         {

@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'DEXTER.wsgi.application'
+WSGI_APPLICATION = 'DEXTER.wsgi.app'
 
 
 # Database
