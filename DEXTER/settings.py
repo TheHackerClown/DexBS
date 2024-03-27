@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'DEXTER.wsgi.app'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'axiwcpks',
+        'USER':'axiwcpks',
+        'PASSWORD': 'w72HDdbB25PeVEcfj2sH3pry6XSuJ450',
+        'HOST': 'topsy.db.elephantsql.com',
+        'PORT':'5432'
     }
 }
 
