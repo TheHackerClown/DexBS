@@ -285,7 +285,7 @@ def post(request, dex, rfid):
                     file_type = 'music'
                 os.remove(file_path)
             else:
-                url = None
+                url = 'none'
                 file_type = 'text'
             inst = Post.objects.create(owner=user,dex=dex,title=title,desc=desc,cake_day=datetime.now(),file=url,type=file_type)
             inst.save()
